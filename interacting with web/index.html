@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Socket demo</title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket;
+		function loadScript(){
+			socket = io.connect("http://localhost:8080/");
+			socket.on('timer', function( data ){
+				document.getElementById("timer").innerHTML = data;
+			  });
+            };
+			function submitData(){
+              var data = document.querySelector("#inputdata").value;
+              socket.emit('submit',data);
+			}; 
+		
+	</script>
+</head>
+<body onload = "loadScript()">
+	<h1>Sample Socket Example</h1>
+	<p>Timer : <span id="timer"></span></p>
+	<form action="#">
+		<p>Data : <input type="text" id="inputdata"></p>
+		<input type="button" onClick = "submitData()" value="Submit">
+	</form>
+</body>
+</html>
